@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cronfile="/etc/cron.d/monitoring"
+dir=$(pwd);
+user=$(whoami);
+
+echo "* * * * * $user $dir/cpu" > $cronfile
+echo "*/5 * * * * $user $dir/ram" >> $cronfile
+echo "0 * * * * $user $dir/disk">> $cronfile
+
+
