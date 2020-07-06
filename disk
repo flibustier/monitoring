@@ -1,12 +1,13 @@
 #!/bin/bash
 
 source `dirname "$0"`/.env
+mountedList=${MOUNTED_LIST:-'/'}
 
 index=3
 for type in used free percent;
   do
     data="$data
-disk{type=\"$type\"} $(df -m / | sed 1d | awk -v i=$index '{ print $i}' | sed 's/%//g')";
+disk{type=\"$type\"} $(df -m $mountedList --total | tail -n 1 | awk -v i=$index '{ print $i}' | sed 's/%//g')";
     ((index++))
   done
 
